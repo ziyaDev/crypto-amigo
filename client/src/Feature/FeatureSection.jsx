@@ -1,34 +1,36 @@
-import React from "react";
-import code from "../assets/setting.svg";
-import monitor from "../assets/charge.svg";
-import contentWriting from "../assets/call.svg";
+import React from 'react';
+import code from '../assets/setting.svg';
+import monitor from '../assets/charge.svg';
+import contentWriting from '../assets/call.svg';
 
 const featureData = [
   {
-    title: "UI Design",
+    title: 'Weekly Crypto Insights',
     description:
-      "Creating visual designs for websites and mobile applications with wireframes and prototypes",
+      'Stay ahead with our weekly newsletters, every Sunday, offering detailed analysis of the crypto market trends, future predictions, and insights tailored for beginners. ',
     image: monitor,
   },
   {
-    title: "Web Development",
+    title: 'Beginner-Friendly Learning',
     description:
-      "Create website & responsive website by HTML/CSS, React & web-flow",
+      'Our newsletters break down complex crypto concepts into easy-to-understand language, helping beginners grasp the essentials of blockchain and cryptocurrencies.',
     image: code,
   },
   {
-    title: "Content Writing",
+    title: 'Practical Tips and Tricks',
     description:
-      "We give you the best content for your product that will attract customers",
+      'Get actionable advice and practical tips in every issue, guiding you through making informed crypto investments and navigating the digital currency landscape safely.',
     image: contentWriting,
   },
 ];
 
-const Card = ({ title, description, image }) => {
+const Card = ({ title, description, image, number }) => {
+  console.log(number);
   return (
     <div className="services-card-box p-6 flex items-center justify-center flex-col gap-y-6">
-      <div className="h-16 w-16 flex items-center justify-center bg-[#F9F9F9] rounded-full">
-        <img className="h-8 w-8 bg-[#F9F9F9]" src={image} alt="" />
+      <div className="text-xl lg:text-2xl font-bold text-[#16403F] text-center h-16 w-16 flex items-center justify-center bg-[#F9F9F9] rounded-full">
+        {/* <img className="h-8 w-8 bg-[#F9F9F9]" src={image} alt="" /> */}
+        {number}
       </div>
       <div className="card-content flex flex-col items-center justify-center gap-y-2">
         <h3 className="text-xl lg:text-2xl font-bold text-[#16403F] text-center">
@@ -44,15 +46,15 @@ const Card = ({ title, description, image }) => {
 
 const FeatureSection = () => {
   return (
-    <section className="services__section max-w-5xl mx-auto px-0 py-10">
-      <div className="services-headlineflex items-center justify-center">
+    <section className="services__section max-w-5xl mx-auto px-0 mt-10">
+      <div className="services-headline flex items-center justify-center">
         <h2 className="text-2xl md:text-3xl lg:text-4xl text-center font-bold">
-          How we help businesses
+          What our newsletter contains
         </h2>
       </div>
-      <div className="services-card grid px-10 lg:px-14 xl:px-2 md:grid-cols-2 lg:grid-cols-3 gap-10 py-12 lg:py-14">
+      <div className="services-card grid px-10 lg:px-14 xl:px-2 md:grid-cols-2 lg:grid-cols-3 gap-5 py-3 lg:py-5">
         {featureData.map((service, index) => (
-          <Card key={index} {...service} />
+          <Card key={index} number={index + 1} {...service} />
         ))}
       </div>
     </section>

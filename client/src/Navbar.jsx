@@ -1,27 +1,28 @@
-import React, { useState, useEffect } from "react";
-import { HiMenuAlt3 } from "react-icons/hi";
+import React, { useState, useEffect } from 'react';
+import { HiMenuAlt3 } from 'react-icons/hi';
 import {
   AiOutlineCloseCircle,
   AiFillInstagram,
   AiOutlineArrowRight,
-} from "react-icons/ai";
-import { BsDiscord } from "react-icons/bs";
-import { FaTwitter } from "react-icons/fa";
-import { MdEmail } from "react-icons/md";
+} from 'react-icons/ai';
+import { BsDiscord } from 'react-icons/bs';
+import { FaTwitter } from 'react-icons/fa';
+import { MdEmail } from 'react-icons/md';
+import MexicanHatIcon from '../src/assets/mexican-hat-2.svg';
 
 // MenuItems JSON
 const menuItems = [
-  { text: "Home", url: "#" },
-  { text: "Pricing", url: "#" },
-  { text: "Features", url: "#" },
-  { text: "Testimonials", url: "#" },
+  // { text: "Home", url: "#" },
+  // { text: "Pricing", url: "#" },
+  // { text: "Features", url: "#" },
+  // { text: "Testimonials", url: "#" },
 ];
 
 const iconComponents = [
-  { Icon: BsDiscord, color: "text-indigo-500", url: "#" },
-  { Icon: AiFillInstagram, color: "text-rose-500", url: "#" },
-  { Icon: FaTwitter, color: "text-sky-600", url: "#" },
-  { Icon: MdEmail, color: "text-teal-500", url: "#" },
+  { Icon: BsDiscord, color: 'text-indigo-500', url: '#' },
+  { Icon: AiFillInstagram, color: 'text-rose-500', url: '#' },
+  { Icon: FaTwitter, color: 'text-sky-600', url: '#' },
+  { Icon: MdEmail, color: 'text-teal-500', url: '#' },
 ];
 
 const IconList = () => (
@@ -39,23 +40,33 @@ const IconList = () => (
 function MobileMenu({ onClose }) {
   useEffect(() => {
     const handleOutsideClick = (event) => {
-      if (!event.target.closest(".main-nav-menu-mobile")) {
+      if (!event.target.closest('.main-nav-menu-mobile')) {
         onClose();
       }
     };
-    document.body.addEventListener("click", handleOutsideClick);
+    document.body.addEventListener('click', handleOutsideClick);
     return () => {
-      document.body.removeEventListener("click", handleOutsideClick);
+      document.body.removeEventListener('click', handleOutsideClick);
     };
   }, [onClose]);
 
   return (
     <div className="main-nav-menu-mobile z-50 bg-white/95 backdrop-blur-sm shadow-sm lg:shadow-none absolute left-0 top-0 bottom-0 right-0 border-r border-slate-400/30 border-dashed w-[270px] md:w-[300px] lg:flex lg:w-[300px] lg:flex-col">
-      <button>
-        <div className="header__logo px-7 py-5 flex items-center gap-x-2">
-          <h2 className="text-black font-bold text-base">CryptoAmigo</h2>
-        </div>
-      </button>
+      <div className="flex flex-row">
+        <button>
+          <div className="header__logo pl-5 pr-1 py-5">
+            <a href="/" className="text-black font-bold text-base">
+              CryptoAmigo
+            </a>
+          </div>
+        </button>
+        <img
+          className="w-7 rotate-12"
+          src={MexicanHatIcon}
+          alt="CryptoAmigo Icon"
+        />
+      </div>
+
       <div className="header__menu lg:hidden">
         <ul className="flex-col space-y-5 px-8 py-5 pb-8 text-sm font-semibold text-zinc-700/60">
           {menuItems.map((menuItem, index) => (
@@ -73,7 +84,7 @@ function MobileMenu({ onClose }) {
         <div className="header__button space-y-2">
           <div className="px-6 lg:flex lg:items-center">
             <button className="button bg-black w-full shadow-button active:scale-95 active:translate-x-1 active:translate-y-1 active:shadow-lg active:drop-shadow transition-all duration-150 lg:w-1/3 text-white text-sm rounded-lg px-5 py-2.5 group font-clash font-[500] group">
-              Join now
+              <a href="/">Join now</a>
               <AiOutlineArrowRight className="inline-block ml-2 group-active:translate-x-2" />
             </button>
           </div>
@@ -98,21 +109,21 @@ function Navbar() {
 
   useEffect(() => {
     const handleEscapeKey = (event) => {
-      if (event.key === "Escape") {
+      if (event.key === 'Escape') {
         setIsMobileMenuOpen(false);
       }
     };
-    document.addEventListener("keydown", handleEscapeKey);
+    document.addEventListener('keydown', handleEscapeKey);
     return () => {
-      document.removeEventListener("keydown", handleEscapeKey);
+      document.removeEventListener('keydown', handleEscapeKey);
     };
   }, []);
 
   useEffect(() => {
     if (isMobileMenuOpen) {
-      document.body.style.overflow = "hidden";
+      document.body.style.overflow = 'hidden';
     } else {
-      document.body.style.overflow = "";
+      document.body.style.overflow = '';
     }
   }, [isMobileMenuOpen]);
 
@@ -120,11 +131,20 @@ function Navbar() {
     <div className="navbar top-0 py-2 px-5 lg:py-5 w-full bg-transparent lg:relative z-50">
       <nav className=" max-w-4xl xl:max-w-5xl mx-auto px-2 lg:px-7 py-3 lg:border-none rounded-lg">
         <div className="flex items-center justify-between">
-          <button>
-            <div className="header__logo flex items-center space-x-2">
-              <h2 className="text-black font-bold text-base">CryptoAmigo</h2>
-            </div>
-          </button>
+          <div className="flex flex-row">
+            <button>
+              <div className="header__logo pl-5 pr-1 py-5">
+                <a href="/" className="text-black font-bold text-base">
+                  CryptoAmigo
+                </a>
+              </div>
+            </button>
+            <img
+              className="w-7 rotate-12"
+              src={MexicanHatIcon}
+              alt="CryptoAmigo Icon"
+            />
+          </div>
           <div className="header__menu hidden lg:flex items-center gap-x-10">
             <ul className="flex space-x-10 text-sm font-semibold text-black/60">
               {menuItems.map((menuItem, index) => (
@@ -140,19 +160,13 @@ function Navbar() {
               ))}
             </ul>
           </div>
-          <div className="group hidden lg:block">
-            <button className="bg-black shadow-button active:scale-95 active:translate-x-1 active:translate-y-1 active:shadow-lg active:drop-shadow transition-all duration-150 text-white py-2 px-5 font-semibold rounded-full">
-              Get started
-              <AiOutlineArrowRight className="inline-block ml-2 group-hover:translate-x-2 transition-all duration-150" />
-            </button>
-          </div>
 
           <div className="flex items-center justify-center lg:hidden">
             <button
               className={`advanced-setting-toggle focus:outline-none transition-all duration-150u ${
                 isMobileMenuOpen
-                  ? "rounded-full bg-slate-200 text-slate-800"
-                  : "text-slate-200"
+                  ? 'rounded-full bg-slate-200 text-slate-800'
+                  : 'text-slate-200'
               }`}
               onClick={handleMobileMenuToggle}
             >
