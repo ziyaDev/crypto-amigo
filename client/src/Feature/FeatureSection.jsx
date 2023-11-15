@@ -25,7 +25,6 @@ const featureData = [
 ];
 
 const Card = ({ title, description, image, number }) => {
-  console.log(number);
   return (
     <div className="services-card-box p-6 flex items-center justify-center flex-col gap-y-6">
       <div className="text-xl lg:text-2xl font-bold text-[#16403F] text-center h-16 w-16 flex items-center justify-center bg-[#F9F9F9] rounded-full">

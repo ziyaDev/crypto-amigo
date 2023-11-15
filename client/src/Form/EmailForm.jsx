@@ -14,22 +14,24 @@ function EmailForm() {
     if (validateEmail(email)) {
       alert('An email was submitted successfully: ' + email);
 
-      // fetch('https://sheet.best/api/sheets/7a75b23a-076a-45cb-8fa6-2850e16b6450', {
-      //     method: 'POST',
-      //     headers: {
-      //         'Content-Type': 'application/json',
-      //     },
-      //     body: JSON.stringify({ "Email": email }),
-      // })
-      // .then(response => response.json())
-      // .then(data => {
-      //     console.log('Success:', data);
-      //     alert('Email saved successfully');
-      // })
-      // .catch((error) => {
-      //     console.error('Error:', error);
-      //     alert('Failed to save email');
-      // });
+      fetch(
+        'https://sheet.best/api/sheets/7a75b23a-076a-45cb-8fa6-2850e16b6450',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ Email: email }),
+        },
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          alert('Email saved successfully');
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          alert('Failed to save email');
+        });
     } else {
       alert('Invalid email: ' + email);
     }
