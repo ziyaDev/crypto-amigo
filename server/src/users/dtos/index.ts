@@ -1,8 +1,12 @@
 export class CreateUserDto {
   name: string;
-  date_of_birth: Date;
+  dateOfBirth: Date;
   status: string;
   roles: string[];
-  created_at: Date;
-  updated_at: Date;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export class GetUserDto {
+  id: string;
 }
