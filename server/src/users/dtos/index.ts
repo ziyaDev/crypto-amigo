@@ -6,7 +6,8 @@ export class CreateUserDto {
   createdAt: Date;
   updatedAt: Date;
 }
-
 export class GetUserDto {
   id: string;
 }
+
+export class UpdateUserDto extends CreateUserDto {}
