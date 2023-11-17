@@ -6,15 +6,15 @@ import { UpdateUserDto } from "./dto/update-user.dto";
 import { User } from "./entities/user.entity";
 
 @Injectable()
-export class UserService {
+export class UsersService {
   constructor(
     @InjectRepository(User) private readonly userRepository: Repository<User>,
   ) {}
 
   async createUser(createUserDto: CreateUserDto): Promise<User> {
-    let user: User = new User();
+    const user: User = new User();
 
-    user = { ...user, ...createUserDto };
+    Object.assign(user, createUserDto);
 
     return this.userRepository.save(user);
   }
@@ -28,13 +28,13 @@ export class UserService {
   }
 
   async updateUser(id: number, updateUserDto: UpdateUserDto): Promise<User> {
-    let user: User = await this.findUser(id);
+    const user: User = await this.findUser(id);
 
     if (!user) {
       throw new NotFoundException(`User with ID ${id} not found`);
     }
 
-    user = { ...user, ...updateUserDto };
+    Object.assign(user, updateUserDto);
 
     return this.userRepository.save(user);
   }

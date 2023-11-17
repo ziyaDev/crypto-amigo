@@ -1,8 +1,8 @@
 import { Module } from "@nestjs/common";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { UserModule } from "./user/user.module";
+import { UsersModule } from "./users/users.module";
 import { ConfigModule, ConfigService } from "@nestjs/config";
-import { User } from "./user/entities/user.entity";
+import { User } from "./users/entities/user.entity";
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -21,7 +21,7 @@ import { User } from "./user/entities/user.entity";
       }),
       inject: [ConfigService],
     }),
-    UserModule,
+    UsersModule,
   ],
 })
 export class AppModule {}
