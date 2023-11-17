@@ -58,6 +58,12 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
+## CQRS pattern
+
+https://docs.nestjs.com/recipes/cqrs
+
+Follows this https://github.com/kamilmysliwiec/nest-cqrs-example/tree/master
+
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
@@ -71,9 +77,3 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
-
-## CQRS pattern
-
-https://docs.nestjs.com/recipes/cqrs
-
-Follows this https://github.com/kamilmysliwiec/nest-cqrs-example/tree/master
