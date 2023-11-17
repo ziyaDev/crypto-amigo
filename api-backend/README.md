@@ -71,3 +71,9 @@ Nest is an MIT-licensed open source project. It can grow thanks to the sponsors 
 ## License
 
 Nest is [MIT licensed](LICENSE).
+
+## CQRS pattern
+
+https://docs.nestjs.com/recipes/cqrs
+
+Follows this https://github.com/kamilmysliwiec/nest-cqrs-example/tree/master
