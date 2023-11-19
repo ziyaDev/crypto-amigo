@@ -8,16 +8,16 @@ import { AppController } from "./app.controller";
 @Module({
   controllers: [AppController],
   imports: [
-    ConfigModule.forRoot(),
+    ConfigModule.forRoot({ isGlobal: true }),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       useFactory: async (configService: ConfigService) => ({
         type: "postgres",
-        host: configService.get("DB_HOST"),
-        port: +configService.get("DB_PORT"),
-        username: configService.get("DB_USERNAME"),
-        password: configService.get("DB_PASSWORD"),
-        database: configService.get("DB_DATABASE"),
+        host: configService.get<string>("DB_HOST"),
+        port: +configService.get<number>("DB_PORT"),
+        username: configService.get<string>("DB_USERNAME"),
+        password: configService.get<string>("DB_PASSWORD"),
+        database: configService.get<string>("DB_DATABASE"),
         entities: [User],
         synchronize: configService.get("NODE_ENV") === "development",
         logging: false,
