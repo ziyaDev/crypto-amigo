@@ -3,7 +3,10 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { UsersModule } from "./users/users.module";
 import { ConfigModule, ConfigService } from "@nestjs/config";
 import { User } from "./users/entities/user.entity";
+import { AuthModule } from "./auth/auth.module";
+import { AppController } from "./app.controller";
 @Module({
+  controllers: [AppController],
   imports: [
     ConfigModule.forRoot(),
     TypeOrmModule.forRootAsync({
@@ -17,11 +20,12 @@ import { User } from "./users/entities/user.entity";
         database: configService.get("DB_DATABASE"),
         entities: [User],
         synchronize: configService.get("NODE_ENV") === "development",
-        logging: true,
+        logging: false,
       }),
       inject: [ConfigService],
     }),
     UsersModule,
+    AuthModule,
   ],
 })
 export class AppModule {}
