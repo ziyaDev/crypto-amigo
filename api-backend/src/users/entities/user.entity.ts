@@ -8,11 +8,11 @@ import {
 
 @Entity()
 export class User {
-  // Auto generated
+  // ==== Auto generated ====
   @PrimaryGeneratedColumn()
   id: number;
 
-  // Manually generated
+  // ==== Manually generated ====
   @Column({ type: "varchar", length: 30 })
   name: string;
 
@@ -37,7 +37,7 @@ export class User {
   @Column("text", { array: true })
   roles: string[];
 
-  // Auto generated
+  // ==== Auto generated ====
   @CreateDateColumn()
   createdAt: Date;
 
