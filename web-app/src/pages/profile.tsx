@@ -1,22 +1,43 @@
 import { useEffect, useState } from "react";
-// import { fetchProfile } from "../../utils/api";
+import axios from "axios";
+
+interface UserProfile {
+  name: string;
+}
 
 const Profile = () => {
-  // const [profile, setProfile] = useState(null);
-
+  const [profile, setProfile] = useState<UserProfile | null>(null);
+  const [error, setError] = useState("");
+  console.log(profile);
   useEffect(() => {
-    // const token = localStorage.getItem("token"); // Adjust based on your token storage
-    // fetchProfile(token).then((data) => setProfile(data));
+    const loadProfile = async () => {
+      try {
+        const res = await axios.get(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/profile`,
+          {
+            withCredentials: true,
+          },
+        );
+        const user = res.data;
+        setProfile(user);
+      } catch (error: any) {
+        console.error(
+          "Error during login:",
+          error.response?.data || error.message,
+        );
+        setError("Failed to load profile. Please log in again.");
+      }
+    };
+    loadProfile();
   }, []);
 
-  // if (!profile) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
+  if (!profile) return <p>Loading user profile...</p>;
 
   return (
     <div>
       <h1>Profile</h1>
-      <p>Name: asdasdsadsd!!!</p>
-      <p>Email: asds</p>
-      {/* Render other profile data */}
+      <p>Name: {profile.name}</p>
     </div>
   );
 };

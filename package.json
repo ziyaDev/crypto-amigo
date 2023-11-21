@@ -1,0 +1,12 @@
+{
+  "name": "crypto-amigo",
+  "private": true,
+    "scripts": {
+    "start": "concurrently \"npm run start:nest\" \"npm run start:next\"",
+    "start:nest": "cd api-backend && npm run start:dev",
+    "start:next": "cd web-app && npm run dev"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}
