@@ -56,7 +56,6 @@ export class AuthController {
     res.cookie("refreshToken", "", { httpOnly: true, expires: new Date(0) });
 
     await this.authService.logout(req.user.id);
-
     return { message: "Logged out successfully" };
   }
 
@@ -72,7 +71,9 @@ export class AuthController {
   async refreshTokens(@Req() req: CustomRequest): Promise<any> {
     const userId = req.user.id;
     const refreshToken = req.user.refreshToken;
-    return this.authService.refreshTokens(userId, refreshToken);
+
+    await this.authService.refreshTokens(userId, refreshToken);
+    return { message: "Tokens refreshed successfully" };
   }
 
   @Post("signup")
