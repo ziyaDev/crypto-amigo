@@ -5,20 +5,21 @@ import { ConfigService } from "@nestjs/config";
 import { Request } from "express";
 
 @Injectable()
-export class JwtStrategy extends PassportStrategy(Strategy) {
+export class AccessTokenStrategy extends PassportStrategy(Strategy, "jwt") {
   constructor(private configService: ConfigService) {
     super({
       jwtFromRequest: ExtractJwt.fromExtractors([
-        JwtStrategy.extractJWTFromCookie,
+        AccessTokenStrategy.extractJWTFromCookie,
       ]),
       ignoreExpiration: false,
-      secretOrKey: configService.get<string>("JWT_SECRET"),
+      secretOrKey: configService.get<string>("JWT_ACCESS_SECRET"),
+      passReqToCallback: true,
     });
   }
 
   private static extractJWTFromCookie(req: Request): string | null {
-    if (req.cookies && req.cookies.access_token) {
-      return req.cookies.access_token;
+    if (req.cookies && req.cookies.accessToken) {
+      return req.cookies.accessToken;
     }
     return null;
   }

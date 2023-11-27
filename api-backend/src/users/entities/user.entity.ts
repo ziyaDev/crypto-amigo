@@ -16,10 +16,10 @@ export class User {
   @Column({ type: "varchar", length: 30 })
   name: string;
 
-  @Column({ type: "varchar", length: 15 })
+  @Column({ type: "varchar", length: 15, unique: true })
   username: string;
 
-  @Column({ type: "varchar", length: 40 })
+  @Column({ type: "varchar", length: 40, unique: true })
   email: string;
 
   @Column({ type: "int" })
@@ -36,6 +36,9 @@ export class User {
 
   @Column("text", { array: true })
   roles: string[];
+
+  @Column({ type: "varchar", nullable: true })
+  refreshToken: string | null;
 
   // ==== Auto generated ====
   @CreateDateColumn()

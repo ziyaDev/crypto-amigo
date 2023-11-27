@@ -8,6 +8,7 @@ import {
   MinLength,
   IsArray,
   Validate,
+  IsOptional,
 } from "class-validator";
 import { IsValidRole } from "../validators/is-valid-role.validator";
 
@@ -49,4 +50,8 @@ export class CreateUserDto {
   @IsString({ each: true })
   @Validate(IsValidRole, { each: true })
   roles: string[];
+
+  @IsString()
+  @IsOptional()
+  refreshToken: string | null;
 }
