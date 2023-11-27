@@ -19,7 +19,7 @@ const LoginPage = () => {
           },
         );
 
-        Router.push("/profile");
+        Router.push("/dashboard/profile");
       } catch {
         setIsLoading(false);
       }
@@ -47,7 +47,7 @@ const LoginPage = () => {
         },
       );
 
-      Router.push("/profile");
+      Router.push("/dashboard/profile");
     } catch (error: any) {
       console.error(
         "Error during login:",

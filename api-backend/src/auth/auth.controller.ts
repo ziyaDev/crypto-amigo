@@ -62,8 +62,8 @@ export class AuthController {
   }
 
   @UseGuards(AccessTokenGuard)
-  @Get("profile")
-  async getProfile(@Req() req: CustomRequest): Promise<User> {
+  @Get("me")
+  async getUserDetails(@Req() req: CustomRequest): Promise<User> {
     const user = await this.usersService.findUserById(req.user.id);
 
     const userWithSensitiveDataRemoved = { ...user };

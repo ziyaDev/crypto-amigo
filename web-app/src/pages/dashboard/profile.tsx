@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import Router from "next/router";
 import LoadingSpinner from "@/components/common/LoadingSpinner";
+import DashboardLayout from "@/components/common/DashboardLayout";
 
 interface UserProfile {
   name: string;
@@ -17,7 +18,7 @@ const ProfilePage = () => {
     const loadProfile = async () => {
       try {
         const res = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/profile`,
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/me`,
           {
             withCredentials: true,
           },
@@ -42,10 +43,12 @@ const ProfilePage = () => {
   if (isLoading || !profile) return <LoadingSpinner />;
 
   return (
-    <div>
-      <h1>Profile</h1>
-      <p>Name: {profile.name}</p>
-    </div>
+    <DashboardLayout>
+      <div>
+        <h1>Profile</h1>
+        <p>Name: {profile.name}</p>
+      </div>
+    </DashboardLayout>
   );
 };
 
