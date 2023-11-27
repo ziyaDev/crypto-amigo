@@ -3,7 +3,7 @@ import {
   ValidatorConstraintInterface,
 } from "class-validator";
 
-const VALID_ROLES = ["admin", "super-admin", "basic"];
+const VALID_ROLES = ["admin", "super-admin", "member"];
 
 @ValidatorConstraint({ name: "isValidRole", async: false })
 export class IsValidRole implements ValidatorConstraintInterface {

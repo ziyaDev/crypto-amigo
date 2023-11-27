@@ -1,38 +1,45 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import Router from "next/router";
+import LoadingSpinner from "@/components/common/LoadingSpinner";
 
 interface UserProfile {
   name: string;
+  // Include other user attributes as needed
 }
 
-const Profile = () => {
+const ProfilePage = () => {
   const [profile, setProfile] = useState<UserProfile | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
-  console.log(profile);
+
   useEffect(() => {
     const loadProfile = async () => {
       try {
         const res = await axios.get(
-          `${process.env.NEXT_PUBLIC_API_BASE_URL}/api/profile`,
+          `${process.env.NEXT_PUBLIC_API_BASE_URL}/auth/profile`,
           {
             withCredentials: true,
           },
         );
         const user = res.data;
         setProfile(user);
+        setIsLoading(false);
       } catch (error: any) {
         console.error(
-          "Error during login:",
+          "Error trying to get profile:",
           error.response?.data || error.message,
         );
+
         setError("Failed to load profile. Please log in again.");
+        Router.push("/login");
       }
     };
+
     loadProfile();
   }, []);
 
-  if (error) return <p>{error}</p>;
-  if (!profile) return <p>Loading user profile...</p>;
+  if (isLoading || !profile) return <LoadingSpinner />;
 
   return (
     <div>
@@ -42,4 +49,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default ProfilePage;

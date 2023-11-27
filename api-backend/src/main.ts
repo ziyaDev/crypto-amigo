@@ -22,6 +22,7 @@ async function bootstrap() {
   );
   app.enableCors({
     credentials: true,
+    origin: true,
   });
 
   await app.listen(configService.get<number>("API_PORT") || 8081);

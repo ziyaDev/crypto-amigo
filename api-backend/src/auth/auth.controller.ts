@@ -6,6 +6,7 @@ import {
   Res,
   Body,
   Patch,
+  Get,
 } from "@nestjs/common";
 import { Response } from "express";
 import { AuthService } from "./auth.service";
@@ -14,6 +15,7 @@ import { LocalAuthGuard } from "../common/guards/localAuth.guard";
 import { CreateUserDto } from "src/users/dto/create-user.dto";
 import { AccessTokenGuard } from "src/common/guards/accessToken.guard";
 import { RefreshTokenGuard } from "src/common/guards/refreshToken.guard";
+import { User } from "src/users/entities/user.entity";
 
 interface CustomRequest extends Request {
   user: any;
@@ -60,15 +62,20 @@ export class AuthController {
   }
 
   @UseGuards(AccessTokenGuard)
-  @Patch("profile")
-  async getProfile(@Req() req: CustomRequest): Promise<any> {
+  @Get("profile")
+  async getProfile(@Req() req: CustomRequest): Promise<User> {
     const user = await this.usersService.findUserById(req.user.id);
-    return user;
+
+    const userWithSensitiveDataRemoved = { ...user };
+    delete userWithSensitiveDataRemoved.password;
+    delete userWithSensitiveDataRemoved.refreshToken;
+
+    return userWithSensitiveDataRemoved;
   }
 
   @UseGuards(RefreshTokenGuard)
   @Patch("refresh")
-  async refreshTokens(@Req() req: CustomRequest): Promise<any> {
+  async refreshTokens(@Req() req: CustomRequest): Promise<{ message: string }> {
     const userId = req.user.id;
     const refreshToken = req.user.refreshToken;
 
@@ -80,7 +87,7 @@ export class AuthController {
   async signup(
     @Body() createUserDto: CreateUserDto,
     @Res({ passthrough: true }) res: Response,
-  ) {
+  ): Promise<{ message: string }> {
     const { accessToken, refreshToken } =
       await this.authService.signUp(createUserDto);
 
@@ -92,5 +99,17 @@ export class AuthController {
     });
 
     return { message: "Created account successfully" };
+  }
+
+  @UseGuards(AccessTokenGuard)
+  @Get("validate")
+  async validateToken(@Req() req: CustomRequest): Promise<{
+    message: string;
+    userId: number;
+  }> {
+    return {
+      message: "User is authenticated",
+      userId: req.user.id,
+    };
   }
 }
