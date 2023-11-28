@@ -2,10 +2,11 @@
 
 import { useState, useEffect } from "react";
 import axios from "axios";
-import Router from "next/router";
+import { useRouter } from "next/navigation";
 import LoadingSpinner from "@/components/common/LoadingSpinner";
 
 const LoginPage = () => {
+  const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
   const [username, setUsername] = useState("");
@@ -21,14 +22,14 @@ const LoginPage = () => {
           },
         );
 
-        Router.push("/dashboard/profile");
+        router.push("/dashboard/profile");
       } catch {
         setIsLoading(false);
       }
     };
 
     checkAuthStatus();
-  }, []);
+  }, [router]);
 
   const handleSubmit = async (event: any) => {
     event.preventDefault();

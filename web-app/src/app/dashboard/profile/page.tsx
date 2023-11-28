@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Router from "next/router";
+import { useRouter } from "next/navigation";
 import LoadingSpinner from "@/components/common/LoadingSpinner";
 import DashboardLayout from "@/components/common/DashboardLayout";
 
@@ -12,6 +12,7 @@ interface UserProfile {
 }
 
 const ProfilePage = () => {
+  const router = useRouter();
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
@@ -35,12 +36,12 @@ const ProfilePage = () => {
         );
 
         setError("Failed to load profile. Please log in again.");
-        Router.push("/login");
+        router.push("/login");
       }
     };
 
     loadProfile();
-  }, []);
+  }, [router]);
 
   if (isLoading || !profile) return <LoadingSpinner />;
 
