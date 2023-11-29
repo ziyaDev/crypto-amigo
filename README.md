@@ -1,0 +1,1 @@
+`npm run start` to run both services (web-app and api-backend)
