@@ -1,4 +1,7 @@
+"use client";
+
 import DashboardLayout from "@/components/common/DashboardLayout";
+import withAuth from "@/app/hoc/withAuth";
 
 const AnalyticsPage = () => {
   return (
@@ -10,4 +13,4 @@ const AnalyticsPage = () => {
   );
 };
 
-export default AnalyticsPage;
+export default withAuth(AnalyticsPage);
