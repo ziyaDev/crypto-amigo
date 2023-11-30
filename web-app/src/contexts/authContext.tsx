@@ -1,14 +1,32 @@
 "use client";
-
-import React, { createContext, useState, useContext, useEffect } from "react";
+import React, { createContext, useState, useContext, useEffect,PropsWithChildren } from "react";
 import axios from "axios";
 
-const AuthContext = createContext({});
+/*
+export type user = {
+ // add your fields here eg
+ id : string
 
-export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
+}
+*/
+type AuthContextType = {
+  isAuthenticated: boolean;
+  user: any | null 
+  // TODO : after you add user types change  user: user | null
+  isLoading: boolean;
+  login : (username: string, password: string) => void
+  logout : () => void
+
+};
+
+
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+export const AuthProvider = ({ children }: PropsWithChildren) => {
   const [user, setUser] = useState(null);
-  const [isLoading, setLoading] = useState(true);
-
+  // TODO : after you add user Types set : 
+  // const [user,setUser] = useState<user | null>(null)
+  const [isLoading, setLoading] = useState<boolean>(true);
   useEffect(() => {
     async function loadUserFromBackend() {
       try {
@@ -69,6 +87,11 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
   );
 };
 
-export const useAuth = () => useContext(AuthContext);
-
+export const useAuth = ():AuthContextType  =>{
+  const context = useContext(AuthContext);
+  if (!context) {
+    throw new Error("useAuth must be used within an AuthContextProvider");
+  }
+  return context;
+}
 export default AuthContext;
